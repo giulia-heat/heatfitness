@@ -66,32 +66,14 @@ function stars(n: number) {
     <div class="rev__track">
       {testimonials.map((t) => (
         <article class="rev__card">
-          <!-- Foto grande -->
-          <div class="rev__photo-wrap">
-            <img
-              src={t.img}
-              srcset={t.imgSrcset}
-              sizes="280px"
-              alt={`Foto di ${t.name}`}
-              class="rev__photo"
-              width="800"
-              height="800"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <!-- Corpo card -->
           <div class="rev__body">
-            <!-- Stelle -->
             <div class="rev__stars" aria-label={`${t.stars} stelle su 5`}>
               {stars(t.stars)}
             </div>
-            <!-- Nome + location -->
             <p class="rev__author">
               <span class="rev__author-name">{t.name}</span>
               <span class="rev__author-location"> · {t.location}</span>
             </p>
-            <!-- Testo -->
             <blockquote class="rev__quote">
               <p>"{t.quote}"</p>
             </blockquote>
@@ -170,7 +152,7 @@ function stars(n: number) {
     margin: 0 auto;
   }
 
-  /* ── Card stile Sferaboards ── */
+  /* ── Card ── */
   .rev__card {
     width: 280px;
     flex-shrink: 0;
@@ -186,34 +168,11 @@ function stars(n: number) {
     transform: translateY(-4px);
   }
 
-  /* Foto grande in cima */
-  .rev__photo-wrap {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    background: var(--gray-200);
-    flex-shrink: 0;
-  }
-
-  .rev__photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .rev__card:hover .rev__photo {
-    transform: scale(1.04);
-  }
-
-  /* Corpo */
   .rev__body {
-    padding: 20px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
     flex: 1;
   }
 
