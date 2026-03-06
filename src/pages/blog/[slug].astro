@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { posts } from '../../data/posts';
+import '../../styles/global.css';
 
 export function getStaticPaths() {
   return posts.map((post) => ({ params: { slug: post.slug } }));
