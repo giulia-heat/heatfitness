@@ -1,0 +1,282 @@
+---
+const BASE = "https://cdn.prod.website-files.com/695a3cceefe59f7b8ee1f77a";
+
+const testimonials = [
+  {
+    name: "Sara",
+    location: "Milano, IT",
+    stars: 5,
+    quote: "Non è un'app che usi per qualche settimana. HEAT è diventata parte del mio modo di allenarmi. Finalmente mi alleno in modo costante.",
+    img: `${BASE}/697e8eee024eb61b5fce1f08_27.png`,
+    imgSrcset: `${BASE}/697e8eee024eb61b5fce1f08_27-p-500.png 500w, ${BASE}/697e8eee024eb61b5fce1f08_27.png 800w`,
+  },
+  {
+    name: "Claudia",
+    location: "Roma, IT",
+    stars: 5,
+    quote: "Continuo a rinnovare perché sento che il percorso ha sempre un senso, anche nel tempo. La struttura settimanale mi ha cambiato la routine.",
+    img: `${BASE}/697e8eff33a3b252e6bd48f4_26.png`,
+    imgSrcset: `${BASE}/697e8eff33a3b252e6bd48f4_26-p-500.png 500w, ${BASE}/697e8eff33a3b252e6bd48f4_26.png 800w`,
+  },
+  {
+    name: "Silvia",
+    location: "Torino, IT",
+    stars: 5,
+    quote: "So sempre con cosa allenarmi e quando. Questo mi ha aiutata a essere molto più costante. Consigliatissima a chi vuole iniziare.",
+    img: `${BASE}/697e8f13dc1c46ca79a8985a_25.png`,
+    imgSrcset: `${BASE}/697e8f13dc1c46ca79a8985a_25-p-500.png 500w, ${BASE}/697e8f13dc1c46ca79a8985a_25.png 800w`,
+  },
+  {
+    name: "Lorenzo",
+    location: "Firenze, IT",
+    stars: 5,
+    quote: "Con HEAT ho smesso di cambiare programma in continuazione. Seguo un percorso e lo porto avanti. I risultati si vedono davvero.",
+    img: `${BASE}/697e8f1f5653ed5186404cce_29.png`,
+    imgSrcset: `${BASE}/697e8f1f5653ed5186404cce_29-p-500.png 500w, ${BASE}/697e8f1f5653ed5186404cce_29.png 800w`,
+  },
+  {
+    name: "Tommaso",
+    location: "Napoli, IT",
+    stars: 5,
+    quote: "Non è sempre lo stesso allenamento: è un percorso che evolve man mano che migliori. Ogni settimana è diversa e motivante.",
+    img: `${BASE}/697e8f3f8a3d228d4d12ad10_28.png`,
+    imgSrcset: `${BASE}/697e8f3f8a3d228d4d12ad10_28-p-500.png 500w, ${BASE}/697e8f3f8a3d228d4d12ad10_28.png 800w`,
+  },
+];
+
+function stars(n: number) {
+  return "★".repeat(n);
+}
+---
+
+<section class="rev" aria-labelledby="rev-title">
+
+  <!-- Header centrato -->
+  <div class="container">
+    <div class="rev__header" data-animate>
+      <h2 class="rev__title" id="rev-title">
+        <span class="rev__title-count">10K+</span> utenti soddisfatti
+      </h2>
+      <p class="rev__sub">Recensioni di utenti verificati</p>
+    </div>
+  </div>
+
+  <!-- Scroll orizzontale card -->
+  <div class="rev__scroll-wrap" aria-label="Recensioni degli utenti" role="region">
+    <div class="rev__track">
+      {testimonials.map((t) => (
+        <article class="rev__card">
+          <!-- Foto grande -->
+          <div class="rev__photo-wrap">
+            <img
+              src={t.img}
+              srcset={t.imgSrcset}
+              sizes="280px"
+              alt={`Foto di ${t.name}`}
+              class="rev__photo"
+              width="800"
+              height="800"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <!-- Corpo card -->
+          <div class="rev__body">
+            <!-- Stelle -->
+            <div class="rev__stars" aria-label={`${t.stars} stelle su 5`}>
+              {stars(t.stars)}
+            </div>
+            <!-- Nome + location -->
+            <p class="rev__author">
+              <span class="rev__author-name">{t.name}</span>
+              <span class="rev__author-location"> · {t.location}</span>
+            </p>
+            <!-- Testo -->
+            <blockquote class="rev__quote">
+              <p>"{t.quote}"</p>
+            </blockquote>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <!-- CTA "Vedi tutte" come Sferaboards -->
+  <div class="container">
+    <div class="rev__cta-wrap">
+      <a href="https://web.cottoaldente.it/" target="_blank" rel="noopener" class="rev__cta">
+        Inizia oggi ad allenarti
+      </a>
+    </div>
+  </div>
+
+</section>
+
+<style>
+  .rev {
+    background: #ffffff;
+    padding: var(--section-py) 0;
+    overflow: hidden;
+  }
+
+  /* ── Header ── */
+  .rev__header {
+    text-align: center;
+    margin-bottom: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .rev__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(32px, 4.5vw, 56px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--orange);
+  }
+
+  .rev__title-count {
+    color: var(--orange);
+  }
+
+  .rev__sub {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+  }
+
+  /* ── Scroll orizzontale ── */
+  .rev__scroll-wrap {
+    overflow-x: auto;
+    /* nasconde la scrollbar ma rimane scrollabile */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0 24px 8px;
+  }
+
+  .rev__scroll-wrap::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rev__track {
+    display: flex;
+    gap: 16px;
+    width: max-content;
+    padding-bottom: 8px;
+  }
+
+  /* ── Card stile Sferaboards ── */
+  .rev__card {
+    width: 280px;
+    flex-shrink: 0;
+    background: var(--gray-100);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition);
+  }
+
+  .rev__card:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Foto grande in cima */
+  .rev__photo-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--gray-200);
+    flex-shrink: 0;
+  }
+
+  .rev__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .rev__card:hover .rev__photo {
+    transform: scale(1.04);
+  }
+
+  /* Corpo */
+  .rev__body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .rev__stars {
+    color: var(--orange);
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+
+  .rev__author {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin: 0;
+  }
+
+  .rev__author-location {
+    font-weight: 400;
+    color: var(--gray-400);
+  }
+
+  .rev__quote p {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--gray-600);
+    margin: 0;
+  }
+
+  /* ── CTA ── */
+  .rev__cta-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  .rev__cta {
+    display: inline-flex;
+    align-items: center;
+    height: 52px;
+    padding: 0 36px;
+    background: #111111;
+    color: #ffffff;
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .rev__cta:hover {
+    background: var(--orange);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(232, 82, 26, 0.25);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rev__card,
+    .rev__photo {
+      transition: none;
+    }
+  }
+</style>

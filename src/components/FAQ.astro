@@ -1,0 +1,235 @@
+---
+const faqs = [
+  {
+    id: "faq-1",
+    question: "Cos'è HEAT? È diversa da Cotto al Dente?",
+    answer: "HEAT è l'evoluzione dell'app Cotto al Dente. Stessi valori, stessa qualità, ma un'esperienza ancora più chiara, più guidata e pensata per guidarti verso il tuo obiettivo. Se conoscevi Cotto al Dente, con HEAT ti sentirai subito a casa.",
+  },
+  {
+    id: "faq-2",
+    question: "Se avevo già un abbonamento su Cotto al Dente?",
+    answer: "Se avevi un abbonamento attivo su Cotto al Dente, resta valido anche su HEAT. Non devi riacquistare nulla: il tuo abbonamento continua senza interruzioni e senza costi aggiuntivi.",
+  },
+  {
+    id: "faq-3",
+    question: "A chi è adatta HEAT?",
+    answer: "HEAT è pensata per chi vuole allenarsi da casa o dove preferisce in modo flessibile, migliorare tono, forza e forma fisica, e seguire programmi chiari senza improvvisare. Non serve essere esperti: trovi piani per diversi livelli.",
+  },
+  {
+    id: "faq-4",
+    question: "Quanto tempo devo allenarmi a settimana?",
+    answer: "Dipende da te. Su HEAT trovi allenamenti di diversa durata, anche brevi, e puoi scegliere i giorni in base alla tua routine. L'obiettivo è rendere l'allenamento sostenibile nel tempo, non perfetto.",
+  },
+  {
+    id: "faq-5",
+    question: "Posso disdire quando voglio?",
+    answer: "Sì. Puoi gestire o disdire il tuo abbonamento in qualsiasi momento, senza vincoli e senza costi nascosti.",
+  },
+];
+---
+
+<section class="faq" aria-labelledby="faq-title">
+  <div class="container">
+    <div class="faq__inner">
+
+      <!-- Colonna sinistra: testo -->
+      <div class="faq__left" data-animate>
+        <p class="faq__eyebrow">FAQ</p>
+        <h2 class="faq__title" id="faq-title">Domande<br />frequenti</h2>
+        <p class="faq__sub">Tutto quello che devi sapere prima di iniziare.</p>
+      </div>
+
+      <!-- Colonna destra: accordion nativo senza React -->
+      <div class="faq__right">
+        <div class="faq__list">
+          {faqs.map((faq) => (
+            <div class="faq__item">
+              <button
+                class="faq__trigger"
+                aria-expanded="false"
+                aria-controls={`faq-answer-${faq.id}`}
+              >
+                <span>{faq.question}</span>
+                <svg class="faq__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+              <div class="faq__answer" id={`faq-answer-${faq.id}`} role="region" aria-hidden="true">
+                <p>{faq.answer}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    padding: var(--section-py) 0;
+    background: #f5f2ee;
+  }
+
+  .faq__inner {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .faq__left {
+    position: sticky;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .faq__eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+
+  .faq__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(32px, 3.5vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin: 0;
+  }
+
+  .faq__sub {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.7;
+    max-width: 220px;
+  }
+
+  .faq__right {
+    width: 100%;
+  }
+
+  /* Accordion nativo */
+  .faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .faq__item {
+    background: #e4e0da;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .faq__trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    color: #111111;
+    transition: color 0.2s;
+  }
+
+  .faq__trigger:hover,
+  .faq__trigger[aria-expanded="true"] {
+    color: var(--orange);
+  }
+
+  .faq__icon {
+    flex-shrink: 0;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    color: currentColor;
+  }
+
+  .faq__trigger[aria-expanded="true"] .faq__icon {
+    transform: rotate(180deg);
+  }
+
+  .faq__answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq__answer[aria-hidden="false"] {
+    grid-template-rows: 1fr;
+  }
+
+  .faq__answer > p {
+    overflow: hidden;
+    min-height: 0;
+    padding: 0 24px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #7a7060;
+    margin: 0;
+    transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq__answer[aria-hidden="false"] > p {
+    padding: 0 24px 20px;
+  }
+
+  @media (max-width: 768px) {
+    .faq__inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .faq__left {
+      position: static;
+      align-items: center;
+      text-align: center;
+    }
+
+    .faq__sub {
+      max-width: 100%;
+    }
+  }
+</style>
+
+<script>
+  const triggers = document.querySelectorAll<HTMLButtonElement>('.faq__trigger');
+
+  triggers.forEach((trigger) => {
+    const answerId = trigger.getAttribute('aria-controls');
+    const answer = answerId ? document.getElementById(answerId) : null;
+    if (!answer) return;
+
+    trigger.addEventListener('click', () => {
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+
+      // Chiudi tutti gli altri
+      triggers.forEach((t) => {
+        const id = t.getAttribute('aria-controls');
+        const a = id ? document.getElementById(id) : null;
+        t.setAttribute('aria-expanded', 'false');
+        a?.setAttribute('aria-hidden', 'true');
+      });
+
+      // Apri o chiudi questo
+      if (!isOpen) {
+        trigger.setAttribute('aria-expanded', 'true');
+        answer.setAttribute('aria-hidden', 'false');
+      }
+    });
+  });
+</script>

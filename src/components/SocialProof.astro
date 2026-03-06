@@ -1,0 +1,128 @@
+---
+const stats = [
+  { value: "10K+", label: "Utenti attivi" },
+  { value: "4.9 ★", label: "Rating medio su App Store" },
+];
+
+const badges = [
+  "Accesso immediato",
+  "Live workout settimanali",
+  "Ricette incluse",
+  "Calendario e monitoraggio",
+];
+---
+
+<section class="sp">
+  <!-- Numeri stats -->
+  <div class="sp__stats">
+    {stats.map((s) => (
+      <div class="sp__stat">
+        <span class="sp__value">{s.value}</span>
+        <span class="sp__label">{s.label}</span>
+      </div>
+    ))}
+  </div>
+
+  <!-- Divisore -->
+  <div class="sp__divider" aria-hidden="true"></div>
+
+  <!-- Badge caratteristiche -->
+  <div class="sp__badges">
+    {badges.map((b) => (
+      <span class="sp__badge">{b}</span>
+    ))}
+  </div>
+</section>
+
+<style>
+  .sp {
+    background: #f5f2ee;
+    border-top: 1px solid rgba(17, 17, 17, 0.08);
+    border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+  }
+
+  /* ── Stats ── */
+  .sp__stats {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  .sp__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 48px 64px;
+    border-right: 1px solid rgba(17, 17, 17, 0.08);
+  }
+
+  .sp__stat:last-child {
+    border-right: none;
+  }
+
+  .sp__value {
+    font-family: var(--font-display); /* TT-Hoves */
+    font-weight: 700;
+    font-size: clamp(44px, 5vw, 64px);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: #111111;
+  }
+
+  .sp__label {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7a7060;
+  }
+
+  /* ── Divisore ── */
+  .sp__divider {
+    height: 1px;
+    background: rgba(17, 17, 17, 0.08);
+  }
+
+  /* ── Badge ── */
+  .sp__badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px 24px;
+  }
+
+  .sp__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 16px;
+    background: #ffffff;
+    border: 1px solid rgba(17, 17, 17, 0.12);
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: #4a4038;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .sp__stats {
+      flex-direction: column;
+    }
+
+    .sp__stat {
+      border-right: none;
+      border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+      padding: 32px 24px;
+    }
+
+    .sp__stat:last-child {
+      border-bottom: none;
+    }
+  }
+</style>

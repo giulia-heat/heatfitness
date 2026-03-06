@@ -1,0 +1,359 @@
+---
+const BASE = "https://cdn.prod.website-files.com/695a3cceefe59f7b8ee1f77a";
+
+// Immagini sezione "progressioni settimanali"
+const IMG_CALENDARIO = `${BASE}/697f8e8245f3789a2f666dff_calendario%20wf.png`;
+const IMG_CARD_PROGRAMMA = `${BASE}/697a7ee203c0718cd51b84fa_card%20programma%20allenamento%203.png`;
+const IMG_FRAME_332 = `${BASE}/697f8a637fcac15ae0a0a2dc_Frame%20427319332.png`;
+---
+
+<section class="weekly" id="features" aria-labelledby="weekly-title">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="weekly__header" data-animate>
+      <h2 class="weekly__title" id="weekly-title">
+        Progressioni settimanali.<br />
+        <span>Pensate per allenarti davvero.</span>
+      </h2>
+      <p class="weekly__sub">
+        Non singoli workout, ma un percorso che si costruisce giorno dopo giorno.
+      </p>
+      <a href="#pricing" class="btn btn-primary">Inizia ora</a>
+    </div>
+
+    <!-- Bento grid principale -->
+    <div class="weekly__bento">
+
+      <!-- Card grande: percorso guidato + calendario -->
+      <article class="weekly__card weekly__card--main" data-animate>
+        <div class="weekly__card-text">
+          <h3 class="weekly__card-title">Un percorso guidato</h3>
+          <p class="weekly__card-desc">
+            Ogni allenamento è pensato per migliorare tono, forza e forma fisica.
+            Apri l'app, premi play e allenati.
+          </p>
+          <span class="weekly__badge">Al calendario pensa HEAT</span>
+        </div>
+        <div class="weekly__card-visual">
+          <img
+            src={IMG_CALENDARIO}
+            alt="Calendario allenamenti HEAT"
+            loading="lazy"
+            class="weekly__card-img"
+          />
+        </div>
+      </article>
+
+      <!-- Card: scegli obiettivo + card programma -->
+      <article class="weekly__card weekly__card--obj" data-animate data-delay="1">
+        <div class="weekly__card-text">
+          <h3 class="weekly__card-title">Tu scegli l'obiettivo</h3>
+          <p class="weekly__card-desc">Al resto pensiamo noi.</p>
+        </div>
+        <div class="weekly__card-visual">
+          <img
+            src={IMG_CARD_PROGRAMMA}
+            alt="Card programma di allenamento HEAT"
+            loading="lazy"
+            class="weekly__card-img weekly__card-img--inset"
+          />
+        </div>
+      </article>
+
+      <!-- Card: progressi -->
+      <article class="weekly__card weekly__card--sm" data-animate data-delay="2">
+        <div class="weekly__card-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <h3 class="weekly__card-title">Segui i tuoi progressi</h3>
+        <p class="weekly__card-desc">Vedi come stai andando, settimana dopo settimana.</p>
+      </article>
+
+      <!-- Card: live workout + frame immagine -->
+      <article class="weekly__card weekly__card--live" data-animate data-delay="3">
+        <div class="weekly__card-text">
+          <div class="weekly__card-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <h3 class="weekly__card-title">Live workouts settimanali</h3>
+          <p class="weekly__card-desc">Un appuntamento fisso per allenarti meglio e non mollare.</p>
+        </div>
+        <div class="weekly__card-visual">
+          <img
+            src={IMG_FRAME_332}
+            alt="Live workout HEAT"
+            loading="lazy"
+            class="weekly__card-img weekly__card-img--inset"
+          />
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .weekly {
+    padding: var(--section-py) 0;
+    position: relative;
+  }
+
+  .weekly__header {
+    margin-bottom: 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 680px;
+  }
+
+  .weekly__title {
+    font-size: clamp(38px, 5.5vw, 76px);
+    color: var(--white);
+    line-height: 1.05;
+  }
+
+  .weekly__title span {
+    color: var(--gray-500);
+  }
+
+  .weekly__sub {
+    font-size: 17px;
+    color: var(--gray-500);
+    line-height: 1.7;
+    max-width: 460px;
+  }
+
+  /* ============================================
+     Bento Grid
+     ============================================ */
+  .weekly__bento {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 16px;
+  }
+
+  /* Card base */
+  .weekly__card {
+    background: var(--gray-100);
+    border: 1px solid rgba(17, 17, 17, 0.08);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: border-color var(--transition), transform var(--transition-slow);
+    position: relative;
+  }
+
+  .weekly__card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(232, 82, 26, 0.07) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity var(--transition);
+  }
+
+  .weekly__card:hover {
+    border-color: rgba(232, 82, 26, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .weekly__card:hover::before {
+    opacity: 1;
+  }
+
+  /* Card principale: col 1-2, row 1 */
+  .weekly__card--main {
+    grid-column: span 2;
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    padding: 40px 48px;
+  }
+
+  .weekly__card--main .weekly__card-text {
+    flex: 1;
+  }
+
+  /* Card obiettivo: col 3, row 1 */
+  .weekly__card--obj {
+    grid-column: span 1;
+  }
+
+  /* Card progressi: col 1, row 2 */
+  .weekly__card--sm {
+    grid-column: span 1;
+  }
+
+  /* Card live: col 2-3, row 2 */
+  .weekly__card--live {
+    grid-column: span 2;
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .weekly__card--live .weekly__card-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Text elements */
+  .weekly__card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .weekly__card-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(232, 82, 26, 0.12);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--orange);
+    flex-shrink: 0;
+  }
+
+  .weekly__card-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+
+  .weekly__card-desc {
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 1.75;
+  }
+
+  .weekly__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 14px;
+    background: rgba(232, 82, 26, 0.15);
+    border: 1px solid rgba(232, 82, 26, 0.3);
+    border-radius: 100px;
+    font-size: 11px;
+    color: var(--orange-light);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    width: fit-content;
+    text-transform: uppercase;
+  }
+
+  /* Immagini */
+  .weekly__card-visual {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .weekly__card-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    object-fit: cover;
+  }
+
+  .weekly__card--main .weekly__card-visual {
+    /* Occupa il restante spazio, con un minimo ragionevole */
+    flex: 1;
+    min-width: 200px;
+    max-width: 340px;
+  }
+
+  .weekly__card--main .weekly__card-img {
+    width: 100%;
+    height: auto;
+    max-height: 240px;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .weekly__card--obj .weekly__card-visual {
+    margin-top: auto;
+    width: 100%;
+  }
+
+  .weekly__card--obj .weekly__card-img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    object-position: bottom center;
+  }
+
+  .weekly__card--live .weekly__card-visual {
+    flex: 1;
+    min-width: 180px;
+    max-width: 280px;
+  }
+
+  .weekly__card--live .weekly__card-img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .weekly__card-img--inset {
+    border-radius: var(--radius-md);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .weekly__bento {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .weekly__card--main {
+      grid-column: span 2;
+      flex-direction: column;
+    }
+
+    .weekly__card--main .weekly__card-visual {
+      width: 100%;
+    }
+
+    .weekly__card--live {
+      grid-column: span 2;
+      flex-direction: column;
+    }
+
+    .weekly__card--live .weekly__card-visual {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .weekly__bento {
+      grid-template-columns: 1fr;
+    }
+
+    .weekly__card--main,
+    .weekly__card--obj,
+    .weekly__card--sm,
+    .weekly__card--live {
+      grid-column: span 1;
+    }
+  }
+</style>

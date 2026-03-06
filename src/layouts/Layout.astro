@@ -1,0 +1,218 @@
+---
+import CookieBanner from '../components/CookieBanner.astro';
+const BASE = "https://cdn.prod.website-files.com/695a3cceefe59f7b8ee1f77a";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+}
+
+const {
+  title = "HEAT – Il Tuo Percorso Fitness.",
+  description = "HEAT – App fitness per allenarti a casa in modo semplice. Allenamenti guidati per tonificare, aumentare forza e migliorare la forma fisica. Apri l'app, premi play e segui il tuo percorso.",
+  image = "https://cdn.prod.website-files.com/695a3cceefe59f7b8ee1f77a/69808391ead5cc250e85343b_cover%20heat.png",
+  canonical = "https://www.heatfitness.app",
+} = Astro.props;
+
+const siteName = "HEAT Fitness";
+const FAVICON_32 = `${BASE}/6980a7673edaa780ebf83c7d_favicon%20gradient32.png`;
+const FAVICON_256 = `${BASE}/6980a76a0ef4dabe5ac97b85_favicon%20gradient256.png`;
+---
+
+<!doctype html>
+<html lang="it-IT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1" />
+
+    <!-- GA4 + Google Ads: is:inline impedisce ad Astro di spostare lo script -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NPFSQP7H6C"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+      gtag('js', new Date());
+      gtag('config', 'G-NPFSQP7H6C');
+      gtag('config', 'AW-827153584');
+    </script>
+
+    <!-- GTM + Meta Pixel: caricati dopo window.load, nessun impatto su LCP/FCP -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+
+      if (!window.fbq) {
+        var fbq = window.fbq = function() {
+          fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments);
+        };
+        if (!window._fbq) window._fbq = fbq;
+        fbq.push = fbq;
+        fbq.loaded = true;
+        fbq.version = '2.0';
+        fbq.queue = [];
+      }
+
+      window.addEventListener('load', function() {
+        var gtm = document.createElement('script');
+        gtm.src = 'https://www.googletagmanager.com/gtm.js?id=GT-NS4JQBTX';
+        gtm.async = true;
+        document.head.appendChild(gtm);
+        window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+
+        var fbScript = document.createElement('script');
+        fbScript.src = 'https://connect.facebook.net/en_US/fbevents.js';
+        fbScript.async = true;
+        document.head.appendChild(fbScript);
+        fbq('init', '868399665293950');
+        fbq('track', 'PageView');
+      });
+    </script>
+    <!-- End GTM + Meta Pixel -->
+    <meta name="theme-color" content="#ffffff" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="it_IT" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
+    <!-- Robots e verifica Google Search Console -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="google-site-verification" content="DmLNkrzovX-0FgnuuRjMOYTj1mUoLA9BvQR6ZbOdnpc" />
+
+    <!-- Preconnect CDN immagini hero -->
+    <link rel="preconnect" href="https://cdn.prod.website-files.com" crossorigin />
+    <!-- Preload LCP mobile: 500px — sufficiente per schermi fino a 500px DPR1 -->
+    <link
+      rel="preload"
+      as="image"
+      href="https://cdn.prod.website-files.com/695a3cceefe59f7b8ee1f77a/6980863b9caf03fe6414fef6_heroimageheatmobile-p-500.jpg"
+      imagesrcset="https://cdn.prod.website-files.com/695a3cceefe59f7b8ee1f77a/6980863b9caf03fe6414fef6_heroimageheatmobile-p-500.jpg 500w, https://cdn.prod.website-files.com/695a3cceefe59f7b8ee1f77a/6980863b9caf03fe6414fef6_heroimageheatmobile-p-800.jpg 800w, https://cdn.prod.website-files.com/695a3cceefe59f7b8ee1f77a/6980863b9caf03fe6414fef6_heroimageheatmobile-p-1080.jpg 1080w"
+      imagesizes="100vw"
+      media="(max-width: 767px)"
+      fetchpriority="high"
+    />
+    <!-- Preload LCP desktop -->
+    <link
+      rel="preload"
+      as="image"
+      href="https://cdn.prod.website-files.com/695a3cceefe59f7b8ee1f77a/6984c1ecc13bf25753761964_foto%20casa%20allenamento-p-1080.jpg"
+      imagesrcset="https://cdn.prod.website-files.com/695a3cceefe59f7b8ee1f77a/6984c1ecc13bf25753761964_foto%20casa%20allenamento-p-800.jpg 800w, https://cdn.prod.website-files.com/695a3cceefe59f7b8ee1f77a/6984c1ecc13bf25753761964_foto%20casa%20allenamento-p-1080.jpg 1080w, https://cdn.prod.website-files.com/695a3cceefe59f7b8ee1f77a/6984c1ecc13bf25753761964_foto%20casa%20allenamento-p-1600.jpg 1600w"
+      imagesizes="100vw"
+      media="(min-width: 768px)"
+      fetchpriority="high"
+    />
+
+    <!-- Preload font critici WOFF2 (TT-Hoves: solo i 2 pesi usati) -->
+    <link rel="preload" href="/fonts/tt-hoves-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/tt-hoves-bold.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- TT-Hoves locale — WOFF2 ottimizzato, solo pesi 400 e 700 -->
+    <style>
+      @font-face {
+        font-family: TT-Hoves;
+        src: url(/fonts/tt-hoves-regular.woff2) format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: TT-Hoves;
+        src: url(/fonts/tt-hoves-bold.woff2) format("woff2");
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
+
+    <!-- Geist (corpo testo) — non-blocking, font-display=optional evita layout shift -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=optional"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=optional" />
+    </noscript>
+
+    <!-- Favicon reali del sito HEAT -->
+    <link rel="icon" type="image/png" sizes="32x32" href={FAVICON_32} />
+    <link rel="icon" type="image/png" sizes="256x256" href={FAVICON_256} />
+    <link rel="apple-touch-icon" href={FAVICON_256} />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "HEAT Fitness",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "iOS, Android",
+        "description": "HEAT – App fitness per allenarti a casa in modo semplice. Allenamenti guidati per tonificare, aumentare forza e migliorare la forma fisica.",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Piano Mensile",
+            "price": "24.99",
+            "priceCurrency": "EUR",
+            "billingIncrement": "P1M"
+          },
+          {
+            "@type": "Offer",
+            "name": "Piano Annuale",
+            "price": "99.99",
+            "priceCurrency": "EUR",
+            "billingIncrement": "P1Y"
+          }
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "500"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GT-NS4JQBTX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <slot />
+    <CookieBanner />
+
+    <!-- Tracciamento click CTA → Lead su Meta Pixel -->
+    <script is:inline>
+      document.addEventListener('click', function(e) {
+        var link = e.target.closest('a[href*="web.cottoaldente.it"]');
+        if (!link) return;
+        if (typeof window.fbq === 'function') {
+          fbq('track', 'Lead');
+        }
+      });
+    </script>
+  </body>
+</html>

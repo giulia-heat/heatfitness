@@ -1,0 +1,47 @@
+---
+import FeaturesTabs from "./FeaturesTabs.tsx";
+---
+
+<section class="fc" id="features-detail" aria-labelledby="fc-title">
+  <div class="container">
+    <div class="fc__header" data-animate>
+      <p class="fc__eyebrow">Tutto ciò che serve. Nient'altro.</p>
+      <h2 class="fc__title" id="fc-title">
+        Un sistema completo per organizzare gli allenamenti e adattarli alla tua routine
+      </h2>
+    </div>
+
+    <div data-animate data-delay="1">
+      <FeaturesTabs client:load />
+    </div>
+  </div>
+</section>
+
+<style>
+  .fc {
+    padding: var(--section-py) 0;
+    background: var(--gray-100);
+    position: relative;
+  }
+
+  .fc__header {
+    margin-bottom: 56px;
+  }
+
+  .fc__eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 16px;
+  }
+
+  .fc__title {
+    font-size: clamp(26px, 3.2vw, 42px);
+    color: var(--white);
+    max-width: 640px;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+  }
+</style>

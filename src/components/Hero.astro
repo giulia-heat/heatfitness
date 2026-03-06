@@ -1,0 +1,249 @@
+---
+const BASE = "https://cdn.prod.website-files.com/695a3cceefe59f7b8ee1f77a";
+
+// Desktop — varianti Webflow
+const BG_DESKTOP      = `${BASE}/6984c1ecc13bf25753761964_foto%20casa%20allenamento.jpg`;
+const BG_DESKTOP_500  = `${BASE}/6984c1ecc13bf25753761964_foto%20casa%20allenamento-p-500.jpg`;
+const BG_DESKTOP_800  = `${BASE}/6984c1ecc13bf25753761964_foto%20casa%20allenamento-p-800.jpg`;
+const BG_DESKTOP_1080 = `${BASE}/6984c1ecc13bf25753761964_foto%20casa%20allenamento-p-1080.jpg`;
+const BG_DESKTOP_1600 = `${BASE}/6984c1ecc13bf25753761964_foto%20casa%20allenamento-p-1600.jpg`;
+
+// Mobile — varianti Webflow (originale 2131×4253 → 44KB a 500px)
+const BG_MOBILE      = `${BASE}/6980863b9caf03fe6414fef6_heroimageheatmobile.jpg`;
+const BG_MOBILE_500  = `${BASE}/6980863b9caf03fe6414fef6_heroimageheatmobile-p-500.jpg`;
+const BG_MOBILE_800  = `${BASE}/6980863b9caf03fe6414fef6_heroimageheatmobile-p-800.jpg`;
+const BG_MOBILE_1080 = `${BASE}/6980863b9caf03fe6414fef6_heroimageheatmobile-p-1080.jpg`;
+---
+
+<section class="hero" aria-label="Presentazione HEAT">
+
+  <!-- Sfondo fotografico fullscreen -->
+  <div class="hero__bg" aria-hidden="true">
+    <picture>
+      <!-- Mobile: srcset ottimizzato -->
+      <source
+        media="(max-width: 767px)"
+        srcset={`${BG_MOBILE_500} 500w, ${BG_MOBILE_800} 800w, ${BG_MOBILE_1080} 1080w`}
+        sizes="100vw"
+      />
+      <!-- Desktop: srcset ottimizzato -->
+      <source
+        media="(min-width: 768px)"
+        srcset={`${BG_DESKTOP_800} 800w, ${BG_DESKTOP_1080} 1080w, ${BG_DESKTOP_1600} 1600w`}
+        sizes="100vw"
+      />
+      <!-- src = versione mobile 500px: il browser userà <source> sopra in ogni caso,
+           ma il fallback deve essere piccolo per non bloccare mobile -->
+      <img
+        src={BG_MOBILE_500}
+        alt=""
+        class="hero__bg-img"
+        loading="eager"
+        fetchpriority="high"
+        decoding="sync"
+        width="500"
+        height="999"
+      />
+    </picture>
+    <div class="hero__overlay"></div>
+  </div>
+
+  <!-- Contenuto centrato -->
+  <div class="hero__center">
+    <p class="hero__eyebrow">Il metodo HEAT</p>
+    <h1 class="hero__headline">
+      Programmi strutturati.<br />Risultati reali.
+    </h1>
+    <p class="hero__sub">
+      Progressioni settimanali, live workout e nutrizione inclusa.<br />Sai sempre cosa fare.
+    </p>
+    <a href="https://web.cottoaldente.it/" target="_blank" rel="noopener" class="hero__cta">
+      Inizia ora
+    </a>
+  </div>
+
+  <!-- Checklist in basso -->
+  <div class="hero__badges" aria-label="Caratteristiche incluse">
+    <span class="hero__badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      Sai sempre cosa fare
+    </span>
+    <span class="hero__badge-sep" aria-hidden="true">·</span>
+    <span class="hero__badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      Programma già strutturato
+    </span>
+    <span class="hero__badge-sep" aria-hidden="true">·</span>
+    <span class="hero__badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      Progressione settimana dopo settimana
+    </span>
+  </div>
+
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: var(--header-h, 104px);
+    padding-bottom: 80px;
+    overflow: hidden;
+  }
+
+  /* Sfondo */
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero__bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    display: block;
+  }
+
+  @media (max-width: 767px) {
+    .hero__bg-img {
+      object-position: center top;
+    }
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.45) 0%,
+      rgba(0, 0, 0, 0.30) 50%,
+      rgba(0, 0, 0, 0.60) 100%
+    );
+  }
+
+  /* Centro */
+  .hero__center {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 28px;
+    max-width: 860px;
+    padding: 0 24px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .hero__eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .hero__headline {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .hero__sub {
+    font-size: clamp(15px, 1.5vw, 17px);
+    color: rgba(255, 255, 255, 0.80);
+    line-height: 1.7;
+    max-width: 420px;
+  }
+
+  .hero__cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 16px 40px;
+    background: #ffffff;
+    color: #111111;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 100px;
+    letter-spacing: 0.01em;
+    transition: var(--transition);
+    text-decoration: none;
+    margin-top: 4px;
+  }
+
+  .hero__cta:hover {
+    background: rgba(255, 255, 255, 0.88);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Badge in basso */
+  .hero__badges {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 24px;
+  }
+
+  .hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .hero__badge svg {
+    color: #e8521a;
+    flex-shrink: 0;
+  }
+
+  .hero__badge-sep {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 18px;
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding-top: 72px;
+      padding-bottom: 48px;
+    }
+
+    .hero__badge-sep {
+      display: none;
+    }
+
+    .hero__badges {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+</style>
+
+<script>
+  function setHeaderHeight() {
+    const header = document.querySelector('header');
+    if (header) {
+      const h = header.getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--header-h', h + 'px');
+    }
+  }
+  setHeaderHeight();
+  window.addEventListener('resize', setHeaderHeight);
+</script>

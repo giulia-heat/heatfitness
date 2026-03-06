@@ -1,0 +1,378 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { posts } from '../../data/posts';
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+---
+
+<Layout
+  title="Blog – HEAT Fitness"
+  description="Articoli su allenamento, nutrizione e mindset per chi vuole risultati veri. Dal team HEAT Fitness."
+  canonical="https://www.heatfitness.app/blog"
+>
+  <Header />
+
+  <main>
+
+    <!-- Header sezione — stesso stile di PricingCards/FAQ -->
+    <section class="bi__hero">
+      <div class="container">
+        <div class="bi__hero-inner" data-animate>
+          <p class="eyebrow">Blog</p>
+          <h1 class="bi__title">Metodo, nutrizione<br />e mindset.</h1>
+          <p class="bi__sub">Tutto quello che ti serve per allenarti meglio, mangiare meglio e restare costante nel tempo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Grid articoli -->
+    <section class="bi__grid-section">
+      <div class="container">
+        <div class="bi__grid">
+
+          <!-- Card featured -->
+          {posts.slice(0, 1).map((post) => (
+            <article class="bi__card bi__card--featured" data-animate>
+              <a href={`/blog/${post.slug}`} class="bi__card-link">
+                <div class="bi__cover">
+                  <img src={post.cover} alt={post.title} loading="eager" width="800" height="500" />
+                </div>
+                <div class="bi__body">
+                  <div class="bi__meta">
+                    <span class="bi__category">{post.category}</span>
+                    <span class="bi__sep">·</span>
+                    <span class="bi__read">{post.readTime} di lettura</span>
+                  </div>
+                  <h2 class="bi__post-title">{post.title}</h2>
+                  <p class="bi__excerpt">{post.excerpt}</p>
+                  <div class="bi__footer-row">
+                    <time class="bi__date" datetime={post.date}>{formatDate(post.date)}</time>
+                    <span class="bi__arrow">Leggi →</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          ))}
+
+          <!-- Card normali -->
+          {posts.slice(1).map((post, i) => (
+            <article class="bi__card" data-animate data-delay={String(i + 1)}>
+              <a href={`/blog/${post.slug}`} class="bi__card-link">
+                <div class="bi__cover bi__cover--ratio">
+                  <img src={post.cover} alt={post.title} loading="lazy" width="600" height="340" />
+                </div>
+                <div class="bi__body">
+                  <div class="bi__meta">
+                    <span class="bi__category">{post.category}</span>
+                    <span class="bi__sep">·</span>
+                    <span class="bi__read">{post.readTime} di lettura</span>
+                  </div>
+                  <h2 class="bi__post-title bi__post-title--sm">{post.title}</h2>
+                  <p class="bi__excerpt">{post.excerpt}</p>
+                  <div class="bi__footer-row">
+                    <time class="bi__date" datetime={post.date}>{formatDate(post.date)}</time>
+                    <span class="bi__arrow">Leggi →</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          ))}
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA finale — identico al Footer della home -->
+    <section class="bi__cta-section">
+      <div class="container">
+        <div class="bi__cta-inner" data-animate>
+          <p class="eyebrow">Il metodo HEAT</p>
+          <h2 class="bi__cta-title">Inizia oggi.<br />Al resto pensa HEAT.</h2>
+          <p class="bi__cta-text">Programmi strutturati, progressioni settimanali e nutrizione inclusa. Sai sempre cosa fare.</p>
+          <a href="https://web.cottoaldente.it/?_gl=1*1rigkb2*_gcl_au*OTgxMjEwNTI2LjE3NjM3MTUwODk.#/signup" target="_blank" rel="noopener" class="btn btn-primary">Inizia con HEAT</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* ── Hero ── */
+  .bi__hero {
+    background: #ffffff;
+    padding-top: var(--header-h, 104px);
+    padding-bottom: 0;
+  }
+
+  .bi__hero-inner {
+    padding: 72px 0 64px;
+    max-width: 680px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 20px;
+  }
+
+  .bi__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 0.97;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    margin: 0 0 20px;
+  }
+
+  .bi__sub {
+    font-size: 17px;
+    color: var(--gray-500);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0;
+  }
+
+  /* ── Grid ── */
+  .bi__grid-section {
+    background: #f5f2ee;
+    padding: 56px 0 80px;
+    border-top: 1px solid rgba(17,17,17,0.08);
+  }
+
+  .bi__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  /* Featured: occupa tutta la larghezza */
+  .bi__card--featured {
+    grid-column: 1 / -1;
+  }
+
+  /* ── Card ── */
+  .bi__card {
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+
+  .bi__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 56px rgba(0,0,0,0.09);
+  }
+
+  .bi__card-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* Featured: immagine a sinistra su desktop */
+  .bi__card--featured .bi__card-link {
+    flex-direction: row;
+  }
+
+  /* ── Cover ── */
+  .bi__cover {
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .bi__card--featured .bi__cover {
+    width: 52%;
+  }
+
+  .bi__cover--ratio {
+    aspect-ratio: 16 / 9;
+  }
+
+  .bi__cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .bi__card:hover .bi__cover img {
+    transform: scale(1.04);
+  }
+
+  /* ── Body ── */
+  .bi__body {
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+  }
+
+  .bi__card--featured .bi__body {
+    padding: 40px 48px;
+    justify-content: center;
+  }
+
+  /* ── Meta ── */
+  .bi__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .bi__category {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+
+  .bi__sep {
+    color: var(--gray-300);
+    font-size: 14px;
+  }
+
+  .bi__read {
+    font-size: 12px;
+    color: var(--gray-400);
+    font-weight: 500;
+  }
+
+  /* ── Titolo ── */
+  .bi__post-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(20px, 2.2vw, 30px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin: 0;
+  }
+
+  .bi__post-title--sm {
+    font-size: clamp(18px, 1.8vw, 22px);
+  }
+
+  /* ── Excerpt ── */
+  .bi__excerpt {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.7;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ── Footer card ── */
+  .bi__footer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .bi__date {
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+
+  .bi__arrow {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--orange);
+    letter-spacing: 0.01em;
+  }
+
+  /* ── CTA finale ── */
+  .bi__cta-section {
+    background: #ffffff;
+    padding: var(--section-py) 0;
+    border-top: 1px solid rgba(17,17,17,0.08);
+  }
+
+  .bi__cta-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .bi__cta-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 0.97;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    margin: 0;
+  }
+
+  .bi__cta-text {
+    font-size: 16px;
+    color: var(--gray-500);
+    line-height: 1.7;
+    max-width: 400px;
+    margin: 0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .bi__hero-inner {
+      padding: 48px 0 40px;
+    }
+
+    .bi__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .bi__card--featured {
+      grid-column: auto;
+    }
+
+    .bi__card--featured .bi__card-link {
+      flex-direction: column;
+    }
+
+    .bi__card--featured .bi__cover {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+    }
+
+    .bi__card--featured .bi__body {
+      padding: 24px;
+    }
+  }
+</style>
+
+<script>
+  function setHeaderHeight() {
+    const header = document.querySelector('header');
+    if (header) {
+      document.documentElement.style.setProperty('--header-h', header.getBoundingClientRect().height + 'px');
+    }
+  }
+  setHeaderHeight();
+  window.addEventListener('resize', setHeaderHeight);
+</script>

@@ -1,0 +1,52 @@
+---
+import PricingToggle from "./PricingToggle.tsx";
+---
+
+<section class="pricing" id="pricing" aria-labelledby="pricing-title">
+  <div class="container">
+    <div class="pricing__header" data-animate>
+      <h2 class="pricing__title" id="pricing-title">
+        Prezzi semplici.<br />Nessun vincolo.
+      </h2>
+      <p class="pricing__sub">
+        Prezzo attuale valido per un numero limitato di nuove iscrizioni.
+      </p>
+    </div>
+
+    <div data-animate data-delay="1">
+      <PricingToggle client:load />
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing {
+    padding: var(--section-py) 0;
+    position: relative;
+  }
+
+  .pricing::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(232, 82, 26, 0.06) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  .pricing__header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .pricing__title {
+    font-size: clamp(40px, 6vw, 80px);
+    color: var(--white);
+    margin-bottom: 14px;
+    letter-spacing: -0.02em;
+  }
+
+  .pricing__sub {
+    font-size: 15px;
+    color: var(--gray-500);
+  }
+</style>
