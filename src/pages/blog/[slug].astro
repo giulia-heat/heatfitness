@@ -28,14 +28,12 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
   <Header />
 
   <main>
-
-    <!-- Hero articolo — stesso linguaggio del Hero della home -->
-    <div class="ph__hero">
+    <div class="ph-hero">
       <picture>
         <img
           src={post.cover}
           alt={post.title}
-          class="ph__cover"
+          class="ph-hero__img"
           loading="eager"
           fetchpriority="high"
           decoding="sync"
@@ -43,15 +41,15 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
           height="600"
         />
       </picture>
-      <div class="ph__overlay"></div>
-      <div class="ph__hero-content">
-        <div class="container">
-          <div class="ph__meta">
-            <a href="/blog" class="ph__back">← Blog</a>
-            <span class="ph__category">{post.category}</span>
+      <div class="ph-hero__overlay"></div>
+      <div class="ph-hero__content">
+        <div class="ph-container">
+          <div class="ph-hero__meta">
+            <a href="/blog" class="ph-hero__back">← Blog</a>
+            <span class="ph-hero__cat">{post.category}</span>
           </div>
-          <h1 class="ph__title">{post.title}</h1>
-          <div class="ph__info">
+          <h1 class="ph-hero__title">{post.title}</h1>
+          <div class="ph-hero__info">
             <time datetime={post.date}>{formatDate(post.date)}</time>
             <span aria-hidden="true">·</span>
             <span>{post.readTime} di lettura</span>
@@ -60,29 +58,25 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
       </div>
     </div>
 
-    <!-- Corpo articolo -->
-    <section class="ph__body-section">
-      <div class="container">
-        <div class="ph__layout">
+    <section class="ph-body">
+      <div class="ph-container">
+        <div class="ph-layout">
+          <article class="ph-article" set:html={post.content} />
 
-          <!-- Testo -->
-          <article class="ph__content" set:html={post.content} />
-
-          <!-- Sidebar sticky — stesso stile card della home -->
-          <aside class="ph__sidebar">
-            <div class="ph__cta-card">
-              <p class="ph__cta-eyebrow">Il metodo HEAT</p>
-              <h2 class="ph__cta-title">Smetti di improvvisare.<br />Inizia con un metodo.</h2>
-              <p class="ph__cta-text">Programmi strutturati, progressioni settimanali e nutrizione inclusa. Sai sempre cosa fare.</p>
+          <aside class="ph-sidebar">
+            <div class="ph-cta-card">
+              <p class="ph-cta-card__eyebrow">Il metodo HEAT</p>
+              <h2 class="ph-cta-card__title">Smetti di improvvisare.<br />Inizia con un metodo.</h2>
+              <p class="ph-cta-card__text">Programmi strutturati, progressioni settimanali e nutrizione inclusa. Sai sempre cosa fare.</p>
               <a
                 href="https://web.cottoaldente.it/?_gl=1*1rigkb2*_gcl_au*OTgxMjEwNTI2LjE3NjM3MTUwODk.#/signup"
                 target="_blank"
                 rel="noopener"
-                class="btn btn-primary"
+                class="ph-btn"
               >
                 Inizia ora
               </a>
-              <ul class="ph__cta-checks" role="list">
+              <ul class="ph-cta-card__checks" role="list">
                 <li>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
                   Accesso immediato
@@ -98,35 +92,33 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
               </ul>
             </div>
           </aside>
-
         </div>
       </div>
     </section>
 
-    <!-- Leggi anche — stesso stile grid del blog index -->
     {otherPosts.length > 0 && (
-      <section class="ph__more">
-        <div class="container">
-          <div class="ph__more-header">
-            <p class="ph__more-eyebrow">Continua a leggere</p>
-            <h2 class="ph__more-title">Leggi anche</h2>
+      <section class="ph-more">
+        <div class="ph-container">
+          <div class="ph-more__header">
+            <p class="ph-more__eyebrow">Continua a leggere</p>
+            <h2 class="ph-more__title">Leggi anche</h2>
           </div>
-          <div class="ph__more-grid">
+          <div class="ph-more__grid">
             {otherPosts.map((p) => (
-              <article class="ph__more-card">
-                <a href={`/blog/${p.slug}`} class="ph__more-link">
-                  <div class="ph__more-cover">
+              <article class="ph-more__card">
+                <a href={`/blog/${p.slug}`} class="ph-more__link">
+                  <div class="ph-more__cover">
                     <img src={p.cover} alt={p.title} loading="lazy" width="600" height="340" />
                   </div>
-                  <div class="ph__more-body">
-                    <div class="ph__more-meta">
-                      <span class="ph__more-cat">{p.category}</span>
-                      <span class="ph__more-sep">·</span>
-                      <span class="ph__more-read">{p.readTime} di lettura</span>
+                  <div class="ph-more__body">
+                    <div class="ph-more__meta">
+                      <span class="ph-more__cat">{p.category}</span>
+                      <span class="ph-more__sep">·</span>
+                      <span class="ph-more__read">{p.readTime} di lettura</span>
                     </div>
-                    <h3 class="ph__more-h">{p.title}</h3>
-                    <p class="ph__more-excerpt">{p.excerpt}</p>
-                    <span class="ph__more-arrow">Leggi →</span>
+                    <h3 class="ph-more__h">{p.title}</h3>
+                    <p class="ph-more__excerpt">{p.excerpt}</p>
+                    <span class="ph-more__arrow">Leggi →</span>
                   </div>
                 </a>
               </article>
@@ -135,22 +127,28 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
         </div>
       </section>
     )}
-
   </main>
 
   <Footer />
 </Layout>
 
 <style>
+  .ph-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
   /* ── Hero ── */
-  .ph__hero {
+  .ph-hero {
     position: relative;
     height: clamp(340px, 52vh, 540px);
     margin-top: var(--header-h, 104px);
     overflow: hidden;
   }
 
-  .ph__cover {
+  .ph-hero__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -158,17 +156,13 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     display: block;
   }
 
-  .ph__overlay {
+  .ph-hero__overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(0,0,0,0.25) 0%,
-      rgba(0,0,0,0.65) 100%
-    );
+    background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 100%);
   }
 
-  .ph__hero-content {
+  .ph-hero__content {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -176,14 +170,14 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     padding-bottom: 48px;
   }
 
-  .ph__meta {
+  .ph-hero__meta {
     display: flex;
     align-items: center;
     gap: 16px;
     margin-bottom: 20px;
   }
 
-  .ph__back {
+  .ph-hero__back {
     font-size: 13px;
     font-weight: 600;
     color: rgba(255,255,255,0.65);
@@ -191,11 +185,9 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     transition: color 0.2s;
   }
 
-  .ph__back:hover {
-    color: #ffffff;
-  }
+  .ph-hero__back:hover { color: #ffffff; }
 
-  .ph__category {
+  .ph-hero__cat {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -206,7 +198,7 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     border-radius: 100px;
   }
 
-  .ph__title {
+  .ph-hero__title {
     font-family: var(--font-display);
     font-weight: 700;
     font-size: clamp(26px, 4.5vw, 52px);
@@ -217,7 +209,7 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     max-width: 760px;
   }
 
-  .ph__info {
+  .ph-hero__info {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -225,28 +217,28 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     color: rgba(255,255,255,0.55);
   }
 
-  /* ── Layout corpo ── */
-  .ph__body-section {
+  /* ── Body ── */
+  .ph-body {
     background: #ffffff;
     padding: 64px 0 80px;
   }
 
-  .ph__layout {
+  .ph-layout {
     display: grid;
     grid-template-columns: 1fr 280px;
     gap: 56px;
     align-items: start;
   }
 
-  /* ── Testo articolo ── */
-  .ph__content {
+  /* ── Article content ── */
+  .ph-article {
     font-size: 17px;
     line-height: 1.8;
     color: var(--gray-600);
     max-width: 680px;
   }
 
-  .ph__content :global(h2) {
+  .ph-article :global(h2) {
     font-family: var(--font-display);
     font-weight: 700;
     font-size: clamp(20px, 2.5vw, 28px);
@@ -256,15 +248,11 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     margin: 48px 0 16px;
   }
 
-  .ph__content :global(h2:first-child) {
-    margin-top: 0;
-  }
+  .ph-article :global(h2:first-child) { margin-top: 0; }
 
-  .ph__content :global(p) {
-    margin: 0 0 20px;
-  }
+  .ph-article :global(p) { margin: 0 0 20px; }
 
-  .ph__content :global(ul) {
+  .ph-article :global(ul) {
     list-style: none;
     padding: 0;
     margin: 0 0 24px;
@@ -273,13 +261,13 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     gap: 10px;
   }
 
-  .ph__content :global(li) {
+  .ph-article :global(li) {
     padding-left: 22px;
     position: relative;
     color: var(--gray-600);
   }
 
-  .ph__content :global(li::before) {
+  .ph-article :global(li::before) {
     content: '→';
     position: absolute;
     left: 0;
@@ -287,19 +275,18 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     font-weight: 700;
   }
 
-  .ph__content :global(strong) {
+  .ph-article :global(strong) {
     color: var(--white);
     font-weight: 600;
   }
 
   /* ── Sidebar ── */
-  .ph__sidebar {
+  .ph-sidebar {
     position: sticky;
     top: calc(var(--header-h, 104px) + 24px);
   }
 
-  /* Stessa card scura usata nelle pricing / HowItWorks */
-  .ph__cta-card {
+  .ph-cta-card {
     background: #111111;
     border-radius: 24px;
     padding: 32px;
@@ -308,7 +295,7 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     gap: 14px;
   }
 
-  .ph__cta-eyebrow {
+  .ph-cta-card__eyebrow {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.14em;
@@ -317,7 +304,7 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     margin: 0;
   }
 
-  .ph__cta-title {
+  .ph-cta-card__title {
     font-family: var(--font-display);
     font-weight: 700;
     font-size: 20px;
@@ -327,19 +314,42 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     margin: 0;
   }
 
-  .ph__cta-text {
+  .ph-cta-card__text {
     font-size: 14px;
     color: rgba(255,255,255,0.55);
     line-height: 1.7;
     margin: 0;
   }
 
-  /* btn btn-primary già definito nel global.css */
-  .ph__cta-card .btn {
+  .ph-btn {
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
+    padding: 14px 32px;
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    background: var(--orange);
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .ph__cta-checks {
+  .ph-btn:hover {
+    background: var(--orange-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(232, 82, 26, 0.35);
+  }
+
+  .ph-cta-card__checks {
     list-style: none;
     padding: 0;
     margin: 4px 0 0;
@@ -348,7 +358,7 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     gap: 8px;
   }
 
-  .ph__cta-checks li {
+  .ph-cta-card__checks li {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -357,23 +367,21 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     color: rgba(255,255,255,0.6);
   }
 
-  .ph__cta-checks svg {
+  .ph-cta-card__checks svg {
     color: var(--orange);
     flex-shrink: 0;
   }
 
   /* ── Leggi anche ── */
-  .ph__more {
-    background: #f5f2ee;
-    padding: var(--section-py) 0;
+  .ph-more {
+    background: var(--gray-100);
+    padding: 100px 0;
     border-top: 1px solid rgba(17,17,17,0.08);
   }
 
-  .ph__more-header {
-    margin-bottom: 40px;
-  }
+  .ph-more__header { margin-bottom: 40px; }
 
-  .ph__more-eyebrow {
+  .ph-more__eyebrow {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.14em;
@@ -382,7 +390,7 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     margin-bottom: 10px;
   }
 
-  .ph__more-title {
+  .ph-more__title {
     font-family: var(--font-display);
     font-weight: 700;
     font-size: clamp(28px, 3.5vw, 40px);
@@ -392,25 +400,26 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     margin: 0;
   }
 
-  .ph__more-grid {
+  .ph-more__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
 
-  .ph__more-card {
+  .ph-more__card {
     background: #ffffff;
     border-radius: 24px;
     overflow: hidden;
-    transition: transform var(--transition), box-shadow var(--transition);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .ph__more-card:hover {
+  .ph-more__card:hover {
     transform: translateY(-4px);
     box-shadow: 0 20px 56px rgba(0,0,0,0.09);
   }
 
-  .ph__more-link {
+  .ph-more__link {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -418,12 +427,12 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     color: inherit;
   }
 
-  .ph__more-cover {
+  .ph-more__cover {
     overflow: hidden;
     aspect-ratio: 16 / 9;
   }
 
-  .ph__more-cover img {
+  .ph-more__cover img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -431,11 +440,11 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     transition: transform 0.5s ease;
   }
 
-  .ph__more-card:hover .ph__more-cover img {
+  .ph-more__card:hover .ph-more__cover img {
     transform: scale(1.04);
   }
 
-  .ph__more-body {
+  .ph-more__body {
     padding: 24px 28px;
     display: flex;
     flex-direction: column;
@@ -443,13 +452,13 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     flex: 1;
   }
 
-  .ph__more-meta {
+  .ph-more__meta {
     display: flex;
     align-items: center;
     gap: 8px;
   }
 
-  .ph__more-cat {
+  .ph-more__cat {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.1em;
@@ -457,16 +466,10 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     color: var(--orange);
   }
 
-  .ph__more-sep {
-    color: var(--gray-300);
-  }
+  .ph-more__sep { color: var(--gray-300); }
+  .ph-more__read { font-size: 12px; color: var(--gray-400); }
 
-  .ph__more-read {
-    font-size: 12px;
-    color: var(--gray-400);
-  }
-
-  .ph__more-h {
+  .ph-more__h {
     font-family: var(--font-display);
     font-weight: 700;
     font-size: 18px;
@@ -476,7 +479,7 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     margin: 0;
   }
 
-  .ph__more-excerpt {
+  .ph-more__excerpt {
     font-size: 13px;
     color: var(--gray-500);
     line-height: 1.65;
@@ -487,7 +490,7 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
     overflow: hidden;
   }
 
-  .ph__more-arrow {
+  .ph-more__arrow {
     font-size: 13px;
     font-weight: 700;
     color: var(--orange);
@@ -496,27 +499,14 @@ const otherPosts = posts.filter((p) => p.slug !== slug).slice(0, 2);
 
   /* ── Responsive ── */
   @media (max-width: 900px) {
-    .ph__layout {
-      grid-template-columns: 1fr;
-    }
-
-    .ph__sidebar {
-      position: static;
-    }
+    .ph-layout { grid-template-columns: 1fr; }
+    .ph-sidebar { position: static; }
   }
 
   @media (max-width: 600px) {
-    .ph__body-section {
-      padding: 40px 0 56px;
-    }
-
-    .ph__more-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .ph__more {
-      padding: 56px 0;
-    }
+    .ph-body { padding: 40px 0 56px; }
+    .ph-more__grid { grid-template-columns: 1fr; }
+    .ph-more { padding: 56px 0; }
   }
 </style>
 
