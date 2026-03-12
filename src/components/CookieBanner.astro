@@ -140,15 +140,57 @@
   const acceptBtn = document.getElementById('cookie-accept') as HTMLButtonElement;
   const rejectBtn = document.getElementById('cookie-reject') as HTMLButtonElement;
 
+  function grantConsent() {
+    // Aggiorna Consent Mode v2 → sblocca GA4, Google Ads, GTM tag
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('consent', 'update', {
+        'analytics_storage':  'granted',
+        'ad_storage':         'granted',
+        'ad_user_data':       'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+    // Carica Meta Pixel se non è già caricato
+    if (typeof (window as any).fbq !== 'function' || !(window as any).fbq.loaded) {
+      const fbScript = document.createElement('script');
+      fbScript.src = 'https://connect.facebook.net/en_US/fbevents.js';
+      fbScript.async = true;
+      fbScript.onload = function() {
+        (window as any).fbq('init', '868399665293950');
+        (window as any).fbq('track', 'PageView');
+      };
+      document.head.appendChild(fbScript);
+    } else {
+      (window as any).fbq('init', '868399665293950');
+      (window as any).fbq('track', 'PageView');
+    }
+  }
+
+  function denyConsent() {
+    // Mantiene tutto su denied (già impostato di default)
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('consent', 'update', {
+        'analytics_storage':  'denied',
+        'ad_storage':         'denied',
+        'ad_user_data':       'denied',
+        'ad_personalization': 'denied'
+      });
+    }
+  }
+
   function dismiss(choice: 'all' | 'necessary') {
     localStorage.setItem(STORAGE_KEY, choice);
+    if (choice === 'all') {
+      grantConsent();
+    } else {
+      denyConsent();
+    }
     banner.classList.add('cb--out');
     setTimeout(() => { banner.hidden = true; }, 320);
   }
 
-  // Mostra solo se non ha già scelto
+  // Mostra solo se l'utente non ha ancora scelto
   if (!localStorage.getItem(STORAGE_KEY)) {
-    // Piccolo delay per non bloccare il LCP
     setTimeout(() => { banner.hidden = false; }, 1200);
   }
 

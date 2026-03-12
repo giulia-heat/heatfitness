@@ -27,50 +27,85 @@ const FAVICON_256 = `${BASE}/6980a76a0ef4dabe5ac97b85_favicon%20gradient256.png`
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1" />
 
-    <!-- GA4 + Google Ads: is:inline impedisce ad Astro di spostare lo script -->
+    <!-- ============================================================
+         Consent Mode v2 — DEVE essere il primo script della pagina.
+         Default: tutto denied. Si aggiorna solo dopo consenso utente.
+         ============================================================ -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      // Default NEGATO per tutti i parametri analitici/pubblicitari
+      gtag('consent', 'default', {
+        'analytics_storage':  'denied',
+        'ad_storage':         'denied',
+        'ad_user_data':       'denied',
+        'ad_personalization': 'denied',
+        'functionality_storage': 'granted',  // tecnico, sempre concesso
+        'wait_for_update': 500               // attendi max 500ms il banner
+      });
+
+      // Se l'utente aveva già scelto in una visita precedente,
+      // ripristina subito il consenso senza aspettare il banner
+      (function() {
+        var saved = localStorage.getItem('heat_cookie_consent');
+        if (saved === 'all') {
+          gtag('consent', 'update', {
+            'analytics_storage':  'granted',
+            'ad_storage':         'granted',
+            'ad_user_data':       'granted',
+            'ad_personalization': 'granted'
+          });
+        }
+        // se saved === 'necessary' o null → rimane denied, nessun update
+      })();
+    </script>
+
+    <!-- GA4 + Google Ads — caricati subito ma rispettano consent mode -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NPFSQP7H6C"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('consent', 'default', {
-        'analytics_storage': 'granted',
-        'ad_storage': 'granted',
-        'ad_user_data': 'granted',
-        'ad_personalization': 'granted'
-      });
       gtag('js', new Date());
-      gtag('config', 'G-NPFSQP7H6C');
+      gtag('config', 'G-NPFSQP7H6C', { 'send_page_view': true });
       gtag('config', 'AW-827153584');
     </script>
 
-    <!-- GTM + Meta Pixel: caricati dopo window.load, nessun impatto su LCP/FCP -->
+    <!-- GTM + Meta Pixel — caricati dopo window.load, solo se consenso granted -->
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
 
+      // Stub Meta Pixel (non invia nulla finché fbevents.js non è caricato
+      // e il consenso non viene aggiornato)
       if (!window.fbq) {
         var fbq = window.fbq = function() {
           fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments);
         };
         if (!window._fbq) window._fbq = fbq;
-        fbq.push = fbq;
-        fbq.loaded = true;
-        fbq.version = '2.0';
-        fbq.queue = [];
+        fbq.push = fbq; fbq.loaded = true; fbq.version = '2.0'; fbq.queue = [];
       }
 
       window.addEventListener('load', function() {
+        // GTM — sempre caricato, ma i tag al suo interno devono usare
+        // trigger basati su Consent Mode per attivarsi correttamente
         var gtm = document.createElement('script');
         gtm.src = 'https://www.googletagmanager.com/gtm.js?id=GT-NS4JQBTX';
         gtm.async = true;
         document.head.appendChild(gtm);
         window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
 
-        var fbScript = document.createElement('script');
-        fbScript.src = 'https://connect.facebook.net/en_US/fbevents.js';
-        fbScript.async = true;
-        document.head.appendChild(fbScript);
-        fbq('init', '868399665293950');
-        fbq('track', 'PageView');
+        // Meta Pixel — caricato e inizializzato solo se consenso completo
+        var saved = localStorage.getItem('heat_cookie_consent');
+        if (saved === 'all') {
+          var fbScript = document.createElement('script');
+          fbScript.src = 'https://connect.facebook.net/en_US/fbevents.js';
+          fbScript.async = true;
+          fbScript.onload = function() {
+            fbq('init', '868399665293950');
+            fbq('track', 'PageView');
+          };
+          document.head.appendChild(fbScript);
+        }
       });
     </script>
     <!-- End GTM + Meta Pixel -->
@@ -204,12 +239,13 @@ const FAVICON_256 = `${BASE}/6980a76a0ef4dabe5ac97b85_favicon%20gradient256.png`
     <slot />
     <CookieBanner />
 
-    <!-- Tracciamento click CTA → Lead su Meta Pixel -->
+    <!-- Tracciamento click CTA → Lead su Meta Pixel (solo se consenso granted) -->
     <script is:inline>
       document.addEventListener('click', function(e) {
         var link = e.target.closest('a[href*="web.cottoaldente.it"]');
         if (!link) return;
-        if (typeof window.fbq === 'function') {
+        if (localStorage.getItem('heat_cookie_consent') === 'all' &&
+            typeof window.fbq === 'function') {
           fbq('track', 'Lead');
         }
       });
